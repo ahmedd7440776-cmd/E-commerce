@@ -1,26 +1,89 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+.container{
+  @apply mx-auto
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.Swiper-wrapper{
+  transition-timing-function: linear !important;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  isolation: isolate;
+  background: #f8fafc;
+}
+
+
+
+body {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.glow {
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 9999px;
+  filter: blur(100px);
+  opacity: 0.35;
+  animation: float-glow 12s ease-in-out infinite alternate;
+}
+
+.glow-one {
+  top: 5%;
+  left: -5rem;
+  background: #202422;
+}
+.glow-one-n {
+  top: 5%;
+  left: -5rem;
+  background: #111111;
+}
+
+.glow-two {
+  top: 35%;
+  right: -6rem;
+  background: #38bdf8;
+  animation-delay: -4s;
+}
+.glow-two-n {
+  top: 35%;
+  right: -6rem;
+  background: #38f84b;
+  animation-delay: -4s;
+}
+
+.glow-three {
+  bottom: -8rem;
+  left: 35%;
+  background: #a3e635;
+  animation-delay: -8s;
+}
+.glow-three-n {
+  bottom: -8rem;
+  left: 35%;
+  background: #35e6e3;
+  animation-delay: -8s;
+}
+
+@keyframes float-glow {
+  from {
+    transform: translate3d(0, 0, 0) scale(0.9);
+  }
+
+  to {
+    transform: translate3d(4rem, 2rem, 0) scale(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow {
+    animation: none;
+  }
 }
