@@ -6,14 +6,13 @@ import { ArrowRight, LockKeyhole, ShieldCheck, Tag, Truck } from "lucide-react";
 import UpdataCartCount from "./UpdataCartCount";
 import Link from "next/link";
 import DeleteProduct from "./DeleteProduct";
-import AppButton from "@/components/AppButton/AppButton";
-import DeleteAllCart from "./deleteAllCart";
 import { Suspense } from "react";
+import DeleteAllCart from "./DeleteAllCart";
 // import DeleteAllCart from "./deleteAllCart";
 
 async function CartContent() {
   const {
-    numOfCartItems,
+    numOfCartItems,cartId,
     data: { products, totalCartPrice },
   } = await getLoggedUserCart();
 
@@ -189,7 +188,10 @@ async function CartContent() {
 
             <Button className="h-10 w-full bg-green-600 text-xs font-bold text-white hover:bg-green-700">
               <LockKeyhole className="mr-2 size-4" />
-              Secure Checkout
+
+              {/*  send the cart id in url and get by [id] parmas and dustruct it (easy)  */}
+
+              <Link href={`/payment/${cartId}`}>Secure Checkout</Link>
             </Button>
 
             <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-[9px] text-slate-500">
@@ -214,7 +216,7 @@ export default function page() {
   return (
     <Suspense
       fallback={
-        <p className="p-8 text-center text-gray-500">Loading cart....</p>
+        <p className="p-8 text-center text-green-800">Loading your cart....</p>
       }
     >
       <CartContent />

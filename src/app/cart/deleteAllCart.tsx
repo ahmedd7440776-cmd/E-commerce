@@ -1,7 +1,7 @@
 'use client'
 import AppButton from '@/components/AppButton/AppButton';
 import { Trash2 } from 'lucide-react';
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { toast } from '@/components/ui/toast';
 import { handleDeleteAllProduct } from './updatacart.action';
 import { CartCountProvider } from '@/context/cartContext/cartContext';

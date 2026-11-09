@@ -2,6 +2,7 @@ import { log } from "console";
 import { decode } from "next-auth/jwt";
 import { cookies } from "next/headers";
 
+
 export async function getUserToken() {
   const cookie = await cookies();
   // console.log(cookie);
@@ -12,6 +13,6 @@ const token = await decode({
   secret: process.env.AUTH_SECRET || "",
   salt: "authjs.session-token",
 });
-//   console.log( 'real token', token);
+  // console.log( 'real token', token);
   return token?.CredentialsToken
 }

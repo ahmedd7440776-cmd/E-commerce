@@ -41,7 +41,7 @@ export async function getLoggedUserCart(): Promise<CartResponse> {
         token: (await getUserToken()) as string,
         "Content-Type": "application/json",
       },
-  cache:'no-store'
+  cache:'force-cache'
     },
   );
 
