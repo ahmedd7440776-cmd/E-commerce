@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export async function getUserToken() {
   const cookie = await cookies();
-  console.log(cookie);
+  // console.log(cookie);
   
   const seccionToken = cookie.get("authjs.session-token")?.value;
 const token = await decode({

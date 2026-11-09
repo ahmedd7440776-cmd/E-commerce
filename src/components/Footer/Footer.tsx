@@ -188,7 +188,7 @@ export default function Footer() {
 
         <div className="border-t border-slate-800">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-center text-xs text-slate-500 sm:px-6 md:flex-row md:items-center md:justify-between md:text-left">
-            <p>© {new Date().getFullYear()} GreenShop. All rights reserved.</p>
+            <p>© 2026 GreenShop. All rights reserved.</p>
             <p>Secure shopping · Fast delivery · Easy returns</p>
           </div>
         </div>

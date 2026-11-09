@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { Toaster } from "@/components/ui/toast";
 import MySessionProvider from "@/components/MySessionProvider/MySessionProvider";
+import CartContext from "@/context/cartContext/cartContext";
 
 const inter = Exo({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -28,14 +29,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </div>
 
         <div className="relative z-10  ">
-          <MySessionProvider >
-            <Navbar />
-            {children}
-            <Toaster />
-            <Footer />
+          <MySessionProvider>
+            <CartContext>
+              <Navbar />
+              {children}
+              <Toaster />
+              <Footer />
+            </CartContext>
           </MySessionProvider>
         </div>
       </body>
     </html>
   );
+
+
+
 }

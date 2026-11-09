@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 export default function AppButton({
   children,
-  ...probs
+  ...props
 }: React.ComponentProps<typeof Button>) {
-  return <Button {...probs}>{children}</Button>;
+  return <Button {...props}>{children}</Button>;
 }
