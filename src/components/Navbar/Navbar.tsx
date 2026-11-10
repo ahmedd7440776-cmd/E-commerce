@@ -54,12 +54,12 @@ export default function Navbar() {
         <div className="flex min-w-0 flex-1 items-center gap-2">
           <Link href="/" className="shrink-0">
             <span className="block rounded-full bg-green-600 p-1.5 text-xl font-bold text-white md:animate-bounce">
-              B.S
+              G.S
             </span>
           </Link>
 
           <span className="hidden shrink-0 text-xl font-bold text-green-800 shadow-2xl lg:flex">
-            Brand.shop
+            Green shop
           </span>
 
           <input

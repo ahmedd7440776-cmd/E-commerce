@@ -7,6 +7,8 @@ import Footer from "@/components/Footer/Footer";
 import { Toaster } from "@/components/ui/toast";
 import MySessionProvider from "@/components/MySessionProvider/MySessionProvider";
 import CartContext from "@/context/cartContext/cartContext";
+import Link from "next/link";
+import { PackageCheck } from "lucide-react";
 
 const inter = Exo({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -31,6 +33,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="relative z-10  ">
           <MySessionProvider>
             <CartContext>
+                  <Link 
+                    href="/orders"
+                    className="fixed right-0 top-1/2 z-9999 rounded-xl flex -translate-y-1/2 items-center gap-2  border border-r-0 border-green-700 bg-blue-600 px-4 py-3 font-medium text-white shadow-lg hover:bg-blue-800"
+                  >
+                    <PackageCheck className="size-5" />
+                
+                  </Link>
               <Navbar />
               {children}
               <Toaster />

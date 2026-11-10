@@ -171,6 +171,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import {
   Banknote,
+  CardSim,
   CreditCard,
   House,
   Info,
@@ -244,7 +245,10 @@ export default function PaymentForm({
       loading: "Placing your order...",
       success: (result) => {
         setCount(0);
-        router.push("/");
+        router.push("/orders");
+        // router.push("/getAllOrders");
+        
+        
         return result.message || "Order placed successfully";
       },
       error: (error) =>
@@ -572,8 +576,9 @@ export default function PaymentForm({
                   <Truck className="size-3 text-blue-500" />
                   Fast Delivery
                 </span>
-                <span className="bg-orange-500 px-1.5 py-0 text-[9px] hover:bg-orange-500">
-                  Easy Returns
+                <span className="flex items-center gap-1">
+                  <CardSim className="size-3 text-orange-500" />
+                  Fast Delivery
                 </span>
               </div>
             </CardContent>

@@ -19,7 +19,7 @@ export async function cashOrder(shippingAddress: PaymentDataType,cartId: string)
     },
   );
   const data:PayResponse = await response.json();
-  console.log("acatuly data", data);
+  // console.log("acatuly data", data);
   revalidatePath('/cart')
 
   return data;

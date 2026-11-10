@@ -7,8 +7,8 @@ import UpdataCartCount from "./UpdataCartCount";
 import Link from "next/link";
 import DeleteProduct from "./DeleteProduct";
 import { Suspense } from "react";
-import DeleteAllCart from "./DeleteAllCart";
-// import DeleteAllCart from "./deleteAllCart";
+import DeleteAllCartProducts from "./deleteAllCartProducts";
+
 
 async function CartContent() {
   const {
@@ -128,7 +128,7 @@ async function CartContent() {
               </Card>
             ))}
 
-            <DeleteAllCart />
+            <DeleteAllCartProducts />
           </section>
         )}
 

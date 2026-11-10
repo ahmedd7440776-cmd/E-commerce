@@ -10,7 +10,7 @@ import { sendUserDataLogin } from "./Login.service";
 import { toast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { Loader2Icon } from "lucide-react";
-import { signIn } from "next-auth/react";
+import { signIn, } from "next-auth/react";
 import { log } from "console";
 // import { googleLogin } from "./social.action";
 

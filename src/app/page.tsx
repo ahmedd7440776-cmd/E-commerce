@@ -41,7 +41,7 @@ import Categories from "./category/page";
 import PromoBanners from "@/components/PromoBanners/PromoBanners ";
 import getAllCategoiers from "./services/category.services";
 import { lazy, Suspense } from "react";
-
+   
 const LazyLoadingpage = lazy(() => import("@/components/slider/Slider"));
 
 export default async function Home() {
@@ -51,12 +51,14 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen w-full overflow-x-hidden ">
+     
+    
+  
       <HeroSlider />
 
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Categories />
       </section>
-
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Suspense
           fallback={
@@ -68,17 +70,16 @@ export default async function Home() {
           <LazyLoadingpage imageList={imageList} />
         </Suspense>
       </section>
-
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <PromoBanners />
       </section>
-
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {productsData.map((e) => (
             <Products key={e._id} prod={e} />
           ))}
         </div>
+        
       </section>
     </main>
   );
