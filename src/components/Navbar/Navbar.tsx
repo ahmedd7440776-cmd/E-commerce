@@ -7,6 +7,10 @@ import {
   LogOut,
   Menu,
   MessageCircleCheck,
+  Settings,
+  Settings2,
+  Settings2Icon,
+  SettingsIcon,
   ShoppingBag,
   User,
   UserPlus,
@@ -75,10 +79,10 @@ export default function Navbar() {
             {/* Mobile menu */}
             <NavigationMenuItem className="flex md:hidden">
               <NavigationMenuTrigger className="px-2">
-                <Menu />
+                <Settings className="animate-spin" />
               </NavigationMenuTrigger>
 
-              <NavigationMenuContent className="z-50! rounded bg-white!">
+              {/* <NavigationMenuContent className="z-50! rounded bg-white!">
                 <ul className="grid w-[min(20rem,calc(100vw-2rem))] gap-2 p-3 font-bold">
                   <li className="hover:bg-green-100">
                     <Link href="/">Home</Link>
@@ -114,6 +118,97 @@ export default function Navbar() {
                         <Link href="/register">Register</Link>
                       </li>
                     </>
+                  )}
+                </ul>
+              </NavigationMenuContent> */}
+
+              <NavigationMenuContent className="z-50 rounded bg-white">
+                <ul className="grid w-[min(20rem,calc(100vw-2rem))] gap-1 p-3 font-bold">
+                  <li className="rounded hover:bg-green-100">
+                    <Link className="block p-2" href="/">
+                      Home
+                    </Link>
+                  </li>
+
+                  <li className="rounded hover:bg-green-100">
+                    <Link className="block p-2" href="/category">
+                      Categories
+                    </Link>
+                  </li>
+
+                  <li className="rounded hover:bg-green-100">
+                    <Link className="block p-2" href="/brands">
+                      Brands
+                    </Link>
+                  </li>
+
+                  <li className="rounded hover:bg-green-100">
+                    <Link className="block p-2" href="/shop">
+                      Shop
+                    </Link>
+                  </li>
+
+                  <li className="rounded hover:bg-green-100">
+                    <Link className="block p-2" href="/wishlist">
+                      Wishlist
+                    </Link>
+                  </li>
+
+                  <li className="rounded hover:bg-green-100">
+                    <Link className="flex items-center gap-2 p-2" href="/cart">
+                      <span className="relative">
+                        Cart
+                        {count > 0 && (
+                          <span
+                            aria-label={`${count} items in cart`}
+                            className="absolute -right-4 -top-2 grid size-5 place-items-center rounded-full bg-green-700 text-xs text-white"
+                          >
+                            {count}
+                          </span>
+                        )}
+                      </span>
+                    </Link>
+                  </li>
+
+                  {/* {!data && (
+                    <>
+                      <li className="rounded hover:bg-green-100">
+                        <Link className="block p-2" href="/login">
+                          Login
+                        </Link>
+                      </li>
+                      <li className="rounded hover:bg-green-100">
+                        <Link className="block p-2" href="/register">
+                          Register
+                        </Link>
+                      </li>
+                    </>
+                  )} */}
+
+                  {!data ? (
+                    <>
+                      <li className="rounded hover:bg-green-100">
+                        <Link className="block p-2" href="/login">
+                          Login
+                        </Link>
+                      </li>
+                      <li className="rounded hover:bg-green-100">
+                        <Link className="block p-2" href="/register">
+                          Register
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <li>
+                      <button
+                        type="button"
+                        onClick={handleLogOut}
+                        className="flex w-full items-center gap-2 rounded p-2 text-left text-red-700 hover:bg-red-50"
+                      >
+                        <LogOut className="size-4" />
+                        <span>Log out</span>
+                      </button>
+                    </li>
                   )}
                 </ul>
               </NavigationMenuContent>

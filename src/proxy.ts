@@ -34,5 +34,13 @@ if (isAuth) {
 //  request contains the object which is the data user (email , name , credentaialToken,.....)
  
 export const config = {
-  matcher: ['/cart' , '/wishlist' , '/category' ,'/login','/register']
-}
+  matcher: [
+    "/cart/:path*",
+    "/wishlist/:path*",
+    "/category/:path*",
+    "/login/:path*",
+    "/register/:path*",
+    "/payment/:path*",
+    "/allorders/:path*",
+  ],
+};

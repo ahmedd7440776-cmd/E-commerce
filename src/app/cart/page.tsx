@@ -8,11 +8,12 @@ import Link from "next/link";
 import DeleteProduct from "./DeleteProduct";
 import { Suspense } from "react";
 import DeleteAllCartProducts from "./deleteAllCartProducts";
-
+import ApplyCoupon from "./ApplyCoupon";
 
 async function CartContent() {
   const {
-    numOfCartItems,cartId,
+    numOfCartItems,
+    cartId,
     data: { products, totalCartPrice },
   } = await getLoggedUserCart();
 
@@ -178,13 +179,15 @@ async function CartContent() {
               </div>
             </div>
 
-            <Button
+            {/* <Button
               variant="outline"
               className="h-9 w-full border-dashed text-xs text-slate-600"
             >
               <Tag className="mr-2 size-3.5" />
               Apply Promo Code
-            </Button>
+            </Button> */}
+
+            <ApplyCoupon />
 
             <Button className="h-10 w-full bg-green-600 text-xs font-bold text-white hover:bg-green-700">
               <LockKeyhole className="mr-2 size-4" />

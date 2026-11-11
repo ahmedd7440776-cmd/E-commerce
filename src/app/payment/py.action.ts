@@ -27,7 +27,6 @@ export async function cashOrder(
 }
 
 
-// Change this path to where you saved the helper
 
 export async function onlineOrder(
   shippingAddress: PaymentDataType,
