@@ -1,12 +1,13 @@
 "use server";
-import { getToken } from "next-auth/jwt";
-import { PaymentDataType, PayResponse } from "./py.interface";
+import { CheckoutSessionResponse, PaymentDataType, PayResponse } from "./py.interface";
 import { getUserToken } from "@/lib/MyUtil";
 import { revalidatePath } from "next/cache";
+import { getSiteUrl } from "@/lib/siteUrl";
 
-
-
-export async function cashOrder(shippingAddress: PaymentDataType,cartId: string): Promise<PayResponse> {
+export async function cashOrder(
+  shippingAddress: PaymentDataType,
+  cartId: string,
+): Promise<PayResponse> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/v2/orders/${cartId}`,
     {
@@ -18,9 +19,54 @@ export async function cashOrder(shippingAddress: PaymentDataType,cartId: string)
       body: JSON.stringify({ shippingAddress }),
     },
   );
-  const data:PayResponse = await response.json();
+  const data: PayResponse = await response.json();
   // console.log("acatuly data", data);
-  revalidatePath('/cart')
+  revalidatePath("/cart");
+
+  return data;
+}
+
+
+// Change this path to where you saved the helper
+
+export async function onlineOrder(
+  shippingAddress: PaymentDataType,
+  cartId: string,
+): Promise<CheckoutSessionResponse> {
+  const apiBaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  if (!apiBaseUrl) {
+    throw new Error("NEXT_PUBLIC_BASE_URL is not set");
+  }
+
+  const checkoutUrl = new URL(
+    `/api/v1/orders/checkout-session/${cartId}`,
+    apiBaseUrl,
+  );
+  checkoutUrl.searchParams.set("url", getSiteUrl());
+
+  const token = await getUserToken();
+
+  if (!token) {
+    throw new Error("Authentication token not found");
+  }
+
+  const response = await fetch(checkoutUrl, {
+    method: "POST",
+    headers: {
+      token,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ shippingAddress }),
+    cache: "no-store",
+  });
+
+  const data: CheckoutSessionResponse = await response.json();
+
+  if (!response.ok) {
+    throw new Error(`Could not start online checkout: ${response.status}`);
+  }
 
   return data;
 }

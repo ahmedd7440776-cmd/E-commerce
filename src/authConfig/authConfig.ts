@@ -80,7 +80,7 @@ console.log("logain data ", data);
   callbacks: {
     //  param is an object that contains the user object and the token object
     jwt: ({ token, user }) => {
-      console.log(  'parama jwt',user,token);
+      // console.log(  'parama jwt',user,token);
 
       // we make this if statement to make sure that there is a user and not return undefined because it is being callled after each succesful call or navgation
       if (user) {
@@ -89,7 +89,7 @@ console.log("logain data ", data);
         token.id = decodeToken.id;
         token.CredentialsToken = user.userTkn;
       }
-      console.log('saved token id ' , token.id);
+      // console.log('saved token id ' , token.id);
       
       // runs on server side and it returns the token object that will be stored in the cookies
       return token;
@@ -102,10 +102,10 @@ console.log("logain data ", data);
       // console.log("param object   ", param);
 
 
-      console.log('seccion callback toen id ', token.id);
+//       console.log('seccion callback toen id ', token.id);
       
       session.user.id = token.id;
-console.log("final seccion ", session);
+// console.log("final seccion ", session);
 
       return session;
     },

@@ -5,10 +5,6 @@ export interface PaymentDataType {
   postalCode: string;
 }
 
-
-
-
-
 export interface PayResponse {
   status: string;
   message: string;
@@ -101,3 +97,26 @@ export interface Brand {
   image: string;
 }
 
+export interface PaymentDataType {
+  details: string;
+  city: string;
+  phone: string;
+  postalCode: string;
+}
+
+export interface CashOrderResponse {
+  status: string;
+  message?: string;
+  user: User;
+  pricing: Pricing;
+  data: Data;
+}
+
+export interface CheckoutSessionResponse {
+  status: string;
+  session: {
+    url: string;
+    success_url: string;
+    cancel_url: string;
+  };
+}

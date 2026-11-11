@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { getUserToken } from "@/lib/MyUtil";
-import { revalidatePath } from "next/cache";
+
 
 export async function getAllOrdersAction() {
   const session = await auth();
@@ -25,12 +25,12 @@ export async function getAllOrdersAction() {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
       },
-      cache: "force-cache",
+      cache: "no-store",
+      next:{revalidate:60*60*24}
     },
   );
 
   const data = await response.json();
-//   revalidatePath('/orders')
   if (!response.ok) {
     throw new Error(`failed to fetch orders : ${response.status}`);
   }

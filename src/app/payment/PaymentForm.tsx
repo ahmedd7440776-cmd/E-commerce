@@ -1,168 +1,3 @@
-// "use client";
-// import { Controller, useForm } from "react-hook-form";
-// import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-// import { Input } from "@/components/ui/input";
-// import AppButton from "@/components/AppButton/AppButton";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { PaymentDataType } from "./py.interface";
-// import { cashOrder } from "./py.action";
-// import { string } from "zod";
-// import { useContext } from "react";
-// import { CartCountProvider } from "@/context/cartContext/cartContext";
-// import { toast } from "@/components/ui/toast";
-// import { useRouter } from "next/navigation";
-// export default function PaymentForm({ id }: { id: string }) {
-//   const {
-//     control,
-//     handleSubmit,
-//     formState: { isSubmitting },
-//   } = useForm({
-//     defaultValues: {
-//       details: "",
-//       phone: "",
-//       city: "",
-//       postalCode: "",
-//     },
-//     mode: "all",
-//     // resolver: zodResolver(),
-//   });
-
-//   const {setCount} = useContext(CartCountProvider)
-
-// const router = useRouter()
-//   async function handleCashPayment(data: PaymentDataType) {
-//     const promise = cashOrder(data, id).then((result) => {
-//       if (result.status !== "success") {
-//         throw new Error(result.message || "Could not place your order");
-//       }
-
-//       return result;
-//     });
-
-//     toast.promise(promise, {
-//       loading: "Placing your order...",
-//       success: (result) => {
-//         setCount(0);
-//         router.push('/')
-//         return result.message || "Order placed successfully";
-//       },
-//       error: (error) =>
-//         error instanceof Error ? error.message : "Could not place your order",
-//     });
-
-//     try {
-//       await promise;
-//     } catch {
-
-//     }
-//   }
-
-//   function handleOnlinePayment(data: PaymentDataType) {
-//     console.log("online", data);
-//   }
-
-//   return (
-//     <>
-//       <form className="flex flex-col gap-6">
-//         <Controller
-//           name="details"
-//           control={control}
-//           render={({ field, fieldState }) => (
-//             <Field data-invalid={fieldState.invalid}>
-//               <FieldLabel htmlFor={field.name}>Address</FieldLabel>
-//               <Input
-//                 {...field}
-//                 id={field.name}
-//                 aria-invalid={fieldState.invalid}
-//                 placeholder="Enter your Address"
-//                 autoComplete="off"
-//                 type="text"
-//               />
-
-//               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-//             </Field>
-//           )}
-//         />
-//         <Controller
-//           name="city"
-//           control={control}
-//           render={({ field, fieldState }) => (
-//             <Field data-invalid={fieldState.invalid}>
-//               <FieldLabel htmlFor={field.name}>City</FieldLabel>
-//               <Input
-//                 {...field}
-//                 id={field.name}
-//                 aria-invalid={fieldState.invalid}
-//                 placeholder="Your city"
-//                 autoComplete="off"
-//                 type="text"
-//               />
-
-//               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-//             </Field>
-//           )}
-//         />
-//         <Controller
-//           name="phone"
-//           control={control}
-//           render={({ field, fieldState }) => (
-//             <Field data-invalid={fieldState.invalid}>
-//               <FieldLabel htmlFor={field.name}>Phone </FieldLabel>
-//               <Input
-//                 {...field}
-//                 id={field.name}
-//                 aria-invalid={fieldState.invalid}
-//                 placeholder="Your phone number"
-//                 autoComplete="off"
-//                 type="tel"
-//               />
-
-//               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-//             </Field>
-//           )}
-//         />
-//         <Controller
-//           name="postalCode"
-//           control={control}
-//           render={({ field, fieldState }) => (
-//             <Field data-invalid={fieldState.invalid}>
-//               <FieldLabel htmlFor={field.name}>Postalcode</FieldLabel>
-//               <Input
-//                 {...field}
-//                 id={field.name}
-//                 aria-invalid={fieldState.invalid}
-//                 placeholder="Your postalcode"
-//                 autoComplete="off"
-//                 type="text"
-//               />
-
-//               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-//             </Field>
-//           )}
-//         />
-
-//         <div className="gap-3  flex justify-center">
-//           <AppButton
-//             onClick={handleSubmit(handleCashPayment)}
-//             // disabled={isSubmitting}
-//             type="button"
-//             className="disabled:cursor-not-allowed disabled:bg-green-700 cursor-pointer  bg-green-700 text-white hover:bg-green-500 w-6/12 hover:text-black"
-//           >
-//             cash
-//           </AppButton>
-
-//           <AppButton
-//             onClick={handleSubmit(handleOnlinePayment)}
-//             type="button"
-//             className="bg-red-700 text-white hover:bg-red-500 w-6/12 cursor-pointer hover:text-black"
-//           >
-//             online
-//           </AppButton>
-//         </div>
-//       </form>
-//     </>
-//   );
-// }
 
 "use client";
 
@@ -182,14 +17,14 @@ import {
   Truck,
 } from "lucide-react";
 
-import { cashOrder } from "./py.action";
-import type { PaymentDataType } from "./py.interface";
 import { CartCountProvider } from "@/context/cartContext/cartContext";
 import AppButton from "@/components/AppButton/AppButton";
 import { toast } from "@/components/ui/toast";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { PaymentDataType } from "./py.interface";
+import { cashOrder, onlineOrder } from "./py.action";
 
 type CartProduct = {
   _id: string;
@@ -237,7 +72,6 @@ export default function PaymentForm({
       if (result.status !== "success") {
         throw new Error(result.message || "Could not place your order");
       }
-
       return result;
     });
 
@@ -245,10 +79,7 @@ export default function PaymentForm({
       loading: "Placing your order...",
       success: (result) => {
         setCount(0);
-        router.push("/orders");
-        // router.push("/getAllOrders");
-        
-        
+        router.push("/allorders");
         return result.message || "Order placed successfully";
       },
       error: (error) =>
@@ -257,6 +88,31 @@ export default function PaymentForm({
 
     try {
       await promise;
+    } catch {
+      // The toast displays the error.
+    }
+  }
+
+  async function handleOnlinePayment(data: PaymentDataType) {
+    const promise = onlineOrder(data, id).then((result) => {
+      if (result.status !== "success" || !result.session?.url) {
+        throw new Error("Could not start online checkout");
+      }
+      return result;
+    });
+
+    toast.promise(promise, {
+      loading: "Starting secure checkout...",
+      success: "Redirecting to Stripe...",
+      error: (error) =>
+        error instanceof Error
+          ? error.message
+          : "Could not start online checkout",
+    });
+
+    try {
+      const result = await promise;
+      window.location.assign(result.session.url);
     } catch {
       // The toast displays the error.
     }
@@ -288,7 +144,6 @@ export default function PaymentForm({
           className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_340px]"
         >
           <div className="space-y-4">
-            {/* Shipping address */}
             <Card className="overflow-hidden rounded-xl border-slate-200 shadow-sm">
               <CardHeader className="bg-green-700 px-5 py-4 text-white">
                 <h2 className="flex items-center gap-2 font-bold">
@@ -426,7 +281,6 @@ export default function PaymentForm({
               </CardContent>
             </Card>
 
-            {/* Payment method */}
             <Card className="overflow-hidden rounded-xl border-slate-200 shadow-sm">
               <CardHeader className="bg-green-700 px-5 py-4 text-white">
                 <h2 className="flex items-center gap-2 font-bold">
@@ -451,13 +305,13 @@ export default function PaymentForm({
                       Pay when your order arrives at your doorstep
                     </span>
                   </span>
-                  <CheckIcon />
                 </div>
 
-                {/* Visual option only for now */}
-                <div
-                  aria-disabled="true"
-                  className="flex cursor-not-allowed items-center gap-3 rounded-xl border border-slate-200 p-3 opacity-60"
+                <button
+                  type="button"
+                  onClick={handleSubmit(handleOnlinePayment)}
+                  disabled={isSubmitting}
+                  className="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-3 text-left hover:border-green-500 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-slate-100 text-slate-500">
                     <CreditCard className="size-5" />
@@ -470,8 +324,7 @@ export default function PaymentForm({
                       Secure payment by credit or debit card
                     </span>
                   </span>
-                  <span className="text-xs text-slate-500">Coming soon</span>
-                </div>
+                </button>
 
                 <div className="flex items-center gap-3 rounded-xl bg-green-50 p-3">
                   <ShieldCheck className="size-5 shrink-0 text-green-700" />
@@ -488,7 +341,6 @@ export default function PaymentForm({
             </Card>
           </div>
 
-          {/* Order summary */}
           <Card className="h-fit overflow-hidden rounded-xl border-slate-200 shadow-sm lg:sticky lg:top-6">
             <CardHeader className="bg-green-700 px-5 py-4 text-white">
               <h2 className="flex items-center gap-2 font-bold">
@@ -564,7 +416,7 @@ export default function PaymentForm({
                 className="mt-4 w-full bg-green-700 text-white hover:bg-green-600 disabled:cursor-not-allowed"
               >
                 <LockKeyhole className="mr-2 size-4" />
-                {isSubmitting ? "Placing order..." : "Place Order"}
+                {isSubmitting ? "Placing order..." : "Place Order (Cash)"}
               </AppButton>
 
               <div className="mt-4 flex flex-wrap justify-center gap-3 border-t border-slate-100 pt-3 text-[10px] text-slate-500">
@@ -578,7 +430,7 @@ export default function PaymentForm({
                 </span>
                 <span className="flex items-center gap-1">
                   <CardSim className="size-3 text-orange-500" />
-                  Fast Delivery
+                  Easy Returns
                 </span>
               </div>
             </CardContent>
@@ -586,13 +438,5 @@ export default function PaymentForm({
         </form>
       </div>
     </main>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <span className="grid size-5 place-items-center rounded-full bg-green-600 text-white">
-      <span className="text-xs">✓</span>
-    </span>
   );
 }

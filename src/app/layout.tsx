@@ -34,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <MySessionProvider>
             <CartContext>
                   <Link 
-                    href="/orders"
+                    href="/allorders"
                     className="fixed right-0 top-1/2 z-9999 rounded-xl flex -translate-y-1/2 items-center gap-2  border border-r-0 border-green-700 bg-blue-600 px-4 py-3 font-medium text-white shadow-lg hover:bg-blue-800"
                   >
                     <PackageCheck className="size-5" />

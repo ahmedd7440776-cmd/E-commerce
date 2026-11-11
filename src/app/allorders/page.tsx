@@ -1,49 +1,44 @@
-
-
-
-
-
-
-import { Suspense } from "react"
-import Link from "next/link"
-import { Card, CardContent } from "@/components/ui/card"
+import { Suspense } from "react";
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
 import {
+  Badge,
   CalendarDays,
   MapPin,
   Package,
   ShoppingBag,
   Truck,
-} from "lucide-react"
-import { getAllOrdersAction } from "./getAllOrders/getAllOrders.action"
+} from "lucide-react";
+import { getAllOrdersAction } from "./getAllOrders.action";
 
 type OrderItem = {
-  _id: string
-  count: number
-  price: number
+  _id: string;
+  count: number;
+  price: number;
   product?: {
-    title?: string
-    imageCover?: string
-  }
-}
+    title?: string;
+    imageCover?: string;
+  };
+};
 
 type Order = {
-  _id: string
-  id?: number
-  createdAt: string
-  totalOrderPrice: number
-  shippingPrice?: number
-  taxPrice?: number
-  paymentMethodType: string
-  isPaid: boolean
-  isDelivered: boolean
+  _id: string;
+  id?: number;
+  createdAt: string;
+  totalOrderPrice: number;
+  shippingPrice?: number;
+  taxPrice?: number;
+  paymentMethodType: string;
+  isPaid: boolean;
+  isDelivered: boolean;
   shippingAddress?: {
-    details?: string
-    phone?: string
-    city?: string
-    postalCode?: string
-  }
-  cartItems?: OrderItem[]
-}
+    details?: string;
+    phone?: string;
+    city?: string;
+    postalCode?: string;
+  };
+  cartItems?: OrderItem[];
+};
 
 export default function MyOrdersPage() {
   return (
@@ -56,11 +51,11 @@ export default function MyOrdersPage() {
     >
       <OrdersContent />
     </Suspense>
-  )
+  );
 }
 
 async function OrdersContent() {
-  const response = await getAllOrdersAction()
+  const response = await getAllOrdersAction();
 
   const orders: Order[] = Array.isArray(response)
     ? response
@@ -68,7 +63,7 @@ async function OrdersContent() {
       ? response.data
       : Array.isArray(response?.data?.data)
         ? response.data.data
-        : []
+        : [];
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -134,23 +129,23 @@ async function OrdersContent() {
         )}
       </div>
     </main>
-  )
+  );
 }
 
 function OrderCard({
   order,
   defaultOpen,
 }: {
-  order: Order
-  defaultOpen: boolean
+  order: Order;
+  defaultOpen: boolean;
 }) {
-  const items = order.cartItems ?? []
-  const firstItem = items[0]
-  const itemCount = items.reduce((sum, item) => sum + item.count, 0)
+  const items = order.cartItems ?? [];
+  const firstItem = items[0];
+  const itemCount = items.reduce((sum, item) => sum + item.count, 0);
   const subtotal = items.reduce(
     (sum, item) => sum + item.price * item.count,
-    0
-  )
+    0,
+  );
 
   return (
     <details
@@ -292,7 +287,7 @@ function OrderCard({
         </div>
       </div>
     </details>
-  )
+  );
 }
 
 function OrderStatus({ order }: { order: Order }) {
@@ -301,7 +296,7 @@ function OrderStatus({ order }: { order: Order }) {
       <span className="bg-green-100 text-green-800 hover:bg-green-100">
         Delivered
       </span>
-    )
+    );
   }
 
   if (order.isPaid) {
@@ -310,33 +305,27 @@ function OrderStatus({ order }: { order: Order }) {
         <Truck className="mr-1 size-3" />
         On the way
       </span>
-    )
+    );
   }
 
   return (
-    <span className="bg-amber-100 text-amber-800 hover:bg-amber-100">
+    <span className="bg-amber-100 text-amber-800 px-2 rounded-2xl hover:bg-amber-100">
       Processing
     </span>
-  )
+  );
 }
 
-function SummaryRow({
-  label,
-  value,
-}: {
-  label: string
-  value: number
-}) {
+function SummaryRow({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex justify-between gap-3 text-slate-600">
       <span>{label}</span>
       <span>{value === 0 ? "Free" : `${value.toLocaleString()} EGP`}</span>
     </div>
-  )
+  );
 }
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat("en-EG", {
     dateStyle: "medium",
-  }).format(new Date(value))
+  }).format(new Date(value));
 }
