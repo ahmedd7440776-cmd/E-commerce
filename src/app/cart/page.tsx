@@ -14,7 +14,7 @@ async function CartContent() {
   const {
     numOfCartItems,
     cartId,
-    data: { products, totalCartPrice },
+    data: { products, totalCartPrice, },
   } = await getLoggedUserCart();
 
   return (

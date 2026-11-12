@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 
-export default function AppButton({
+export default function HeartAppButton({
   children,
   ...props
 }: React.ComponentProps<typeof Button>) {

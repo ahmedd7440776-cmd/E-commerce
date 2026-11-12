@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "src/app/wishlist/page.tsx"  ],
+, "src/app/wishlist/wishlist.action.ts"  ],
   "exclude": ["node_modules"]
 }

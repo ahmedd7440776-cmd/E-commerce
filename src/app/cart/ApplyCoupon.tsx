@@ -14,37 +14,64 @@ export default function ApplyCoupon() {
   const [isApplying, setIsApplying] = useState(false);
   const router = useRouter();
 
+  // async function handleApplyCoupon(event: React.FormEvent<HTMLFormElement>) {
+  //   event.preventDefault();
 
+  //   const name = couponName.trim();
+  //   if (!name) return;
 
+  //   setIsApplying(true);
 
+  //   const promise = applayCoupon(name);
 
-async function handleApplyCoupon(event: React.FormEvent<HTMLFormElement>) {
-  event.preventDefault();
+  //   toast.promise(promise, {
+  //     loading: "Applying coupon...",
+  //     success: (result) => result.message || "Coupon applied successfully.",
+  //     error: (error) =>
+  //       error instanceof Error ? error.message : "Could not apply coupon.",
+  //   });
 
-  const name = couponName.trim();
-  if (!name) return;
+  //   try {
+  //     await promise;
+  //     setCouponName("");
+  //     router.refresh();
+  //   } catch {
+  //     // The toast displays the error.
+  //   } finally {
+  //     setIsApplying(false);
+  //   }
+  // }
 
-  setIsApplying(true);
+  const [message, setMessage] = useState("");
+  const [hasError, setHasError] = useState(false);
 
-  const promise = applayCoupon(name);
+  async function handleApplyCoupon(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-  toast.promise(promise, {
-    loading: "Applying coupon...",
-    success: (result) => result.message || "Coupon applied successfully.",
-    error: (error) =>
-      error instanceof Error ? error.message : "Could not apply coupon.",
-  });
+    const name = couponName.trim();
+    if (!name) {
+      setHasError(true);
+      setMessage("Enter a coupon code first.");
+      return;
+    }
 
-  try {
-    await promise;
-    setCouponName("");
-    router.refresh();
-  } catch {
-    // The toast displays the error.
-  } finally {
-    setIsApplying(false);
+    setIsApplying(true);
+    setMessage("");
+
+    try {
+      const result = await applayCoupon(name);
+
+      setHasError(!result.success);
+      setMessage(result.message);
+
+      if (result.success) {
+        setCouponName("");
+        router.refresh();
+      }
+    } finally {
+      setIsApplying(false);
+    }
   }
-}
 
   return (
     <form onSubmit={handleApplyCoupon} className="space-y-2">
@@ -59,7 +86,20 @@ async function handleApplyCoupon(event: React.FormEvent<HTMLFormElement>) {
         <Button type="submit" disabled={isApplying || !couponName.trim()}>
           <Tag className="mr-2 size-4" />
           {isApplying ? "Applying..." : "Apply"}
-        </Button>
+        </Button>{" "}
+      </div>
+
+      <div>
+        {" "}
+        {message && (
+          <p
+            className={
+              hasError ? "text-sm text-red-600" : "text-sm text-green-700"
+            }
+          >
+            {message}
+          </p>
+        )}
       </div>
     </form>
   );

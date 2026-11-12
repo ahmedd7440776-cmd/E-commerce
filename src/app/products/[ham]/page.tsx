@@ -1,21 +1,37 @@
-import React from "react";
 import { Star } from "lucide-react";
 import AppButton from "@/components/AppButton/AppButton";
+import WishlistButton from "@/app/wishlist/WishlistButton";
+import AddToCart from "@/components/AddToCart/AddToCart";
 
-export default async function ProductDetails({
-  params,
-}: {
+
+
+
+import { Suspense } from "react";
+
+type PageProps = {
   params: Promise<{ ham: string }>;
-}) {
+};
+
+export default function Page({ params }: PageProps) {
+  return (
+    <Suspense
+      fallback={<main className="p-8 text-center">Loading product...</main>}
+    >
+      <ProductDetails params={params} />
+    </Suspense>
+  );
+}
+
+
+  async function ProductDetails(
+{ params }: PageProps) {
   const { ham } = await params;
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/products/${ham}`,
     {
       cache: "force-cache",
-      next: {
-        revalidate: 60,
-      },
+      next: { revalidate: 60 },
     },
   );
 
@@ -38,6 +54,10 @@ export default async function ProductDetails({
             />
           </div>
 
+          <div className="mt-4">
+            
+          </div>
+
           {product.images?.length > 0 && (
             <div className="mt-3 grid grid-cols-4 gap-3">
               {product.images.map((image: string, index: number) => (
@@ -57,9 +77,16 @@ export default async function ProductDetails({
         </section>
 
         <section className="flex min-w-0 flex-col">
-          <p className="text-sm font-medium text-green-700">
-            {product.category?.name}
-          </p>
+          <div>
+            <p className="text-sm font-medium text-green-700 mb-2">
+              {product.category?.name}
+            </p>
+
+            <WishlistButton
+              productId={product._id}
+              productTitle={product.title}
+            />
+          </div>
 
           <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
             {product.title}
@@ -72,12 +99,12 @@ export default async function ProductDetails({
           <div className="mt-4 flex flex-wrap items-center gap-2">
             <div
               className="flex items-center"
-              aria-label={`${product.ratingsAverage} out of 5 stars`}
+              aria-label={`${product.ratingsAverage ?? 0} out of 5 stars`}
             >
               {Array.from({ length: 5 }, (_, index) => (
                 <Star
                   key={index}
-                  className={`h-5 w-5 ${
+                  className={`size-5 ${
                     index < Math.floor(product.ratingsAverage ?? 0)
                       ? "fill-yellow-400 text-yellow-400"
                       : "text-gray-300"
@@ -85,6 +112,7 @@ export default async function ProductDetails({
                 />
               ))}
             </div>
+
             <span className="text-sm text-gray-500">
               {product.ratingsAverage ?? 0} ({product.ratingsQuantity ?? 0}{" "}
               reviews)
@@ -99,14 +127,12 @@ export default async function ProductDetails({
             {product.description}
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600">
+          <div className="mt-6  mb-2 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600">
             <span>{product.quantity} in stock</span>
             <span>{product.sold} sold</span>
           </div>
 
-          <AppButton className="mt-8 w-full rounded-lg bg-green-700 px-6 py-3 font-semibold text-white transition hover:bg-green-800 sm:w-fit">
-            Add to cart
-          </AppButton>
+          <AddToCart prod={product} />
         </section>
       </div>
     </main>

@@ -1,8 +1,9 @@
-import { Eye, Heart, Plus, RefreshCw, Star } from "lucide-react";
+import { Eye, RefreshCw, Star } from "lucide-react";
 import Link from "next/link";
-import { Product } from "@/app/services/home.interface";
-import AppButton from "@/components/AppButton/AppButton";
+import type { Product } from "@/app/services/home.interface";
 import AddToCart from "@/components/AddToCart/AddToCart";
+import WishlistButton from "../wishlist/WishlistButton";
+
 
 export default function Products({ prod }: { prod: Product }) {
   const {
@@ -24,8 +25,9 @@ export default function Products({ prod }: { prod: Product }) {
   const discountPercent = hasDiscount
     ? Math.round(((price - priceAfterDiscount!) / price) * 100)
     : 0;
+
   return (
-    <article className="group  container w-11/12 relative flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white p-3 transition-shadow hover:shadow-lg sm:p-4 mx-1 md:mx-0">
+    <article className="group relative mx-1 flex h-full w-11/12 container flex-col overflow-hidden rounded-xl border border-gray-200 bg-white p-3 transition-shadow hover:shadow-lg sm:p-4 md:mx-0">
       <div className="relative">
         <Link
           href={`/products/${_id}`}
@@ -45,34 +47,28 @@ export default function Products({ prod }: { prod: Product }) {
           </span>
         )}
 
-        <div className="absolute right-0 top-0 flex flex-col gap-2">
-          <button
-            type="button"
-            aria-label="Add to favorites"
-            className="grid h-7 w-7 place-items-center rounded-full border border-gray-100 bg-white text-slate-600 shadow-sm transition hover:text-red-500"
-          >
-            <Heart className="h-4 w-4" />
-          </button>
+        <div className="absolute right-0 top-0 flex flex-col items-center gap-2">
+          <WishlistButton productId={_id} productTitle={title} />
 
           <button
-            type="button"
-            aria-label="Compare product"
-            className="grid h-7 w-7 place-items-center rounded-full border border-gray-100 bg-white text-slate-600 shadow-sm transition hover:text-green-600"
+                      type="button"
+            aria-label={`Compare ${title}`}
+            className="grid size-7 place-items-center rounded-full border border-gray-100 bg-white text-slate-600 shadow-sm transition hover:text-green-600"
           >
-            <RefreshCw className="h-4 w-4" />
+            <RefreshCw className="size-4" />
           </button>
 
           <Link
             href={`/products/${_id}`}
             aria-label={`View ${title} details`}
-            className="grid h-7 w-7 place-items-center rounded-full border border-gray-100 bg-white text-slate-600 shadow-sm transition hover:text-green-600"
+            className="grid size-7 place-items-center rounded-full border border-gray-100 bg-white text-slate-600 shadow-sm transition hover:text-green-600"
           >
-            <Eye className="h-4 w-4" />
+            <Eye className="size-4" />
           </Link>
         </div>
 
         {quantity === 0 && (
-          <span className="absolute left-0 top-0 rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600">
+          <span className="absolute bottom-0 left-0 rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600">
             Out of stock
           </span>
         )}
@@ -97,7 +93,7 @@ export default function Products({ prod }: { prod: Product }) {
             {Array.from({ length: 5 }, (_, index) => (
               <Star
                 key={index}
-                className={`h-5 w-5 ${
+                className={`size-5 ${
                   index < Math.floor(rating)
                     ? "fill-yellow-400 text-yellow-400"
                     : "text-yellow-400"
@@ -124,7 +120,7 @@ export default function Products({ prod }: { prod: Product }) {
             )}
           </div>
 
-          <AddToCart prod={prod}/>
+          <AddToCart prod={prod} />
         </div>
       </div>
     </article>
