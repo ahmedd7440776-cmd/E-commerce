@@ -8,7 +8,8 @@ import { Toaster } from "@/components/ui/toast";
 import MySessionProvider from "@/components/MySessionProvider/MySessionProvider";
 import CartContext from "@/context/cartContext/cartContext";
 import Link from "next/link";
-import { PackageCheck } from "lucide-react";
+import { PackageCheck, Settings } from "lucide-react";
+import { Suspense } from "react";
 
 const inter = Exo({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -32,25 +33,31 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <div className="relative z-10  ">
           <MySessionProvider>
-            <CartContext>
-                  <Link 
-                    href="/allorders"
-                    className="fixed right-0 top-1/2 z-9999 rounded-xl flex -translate-y-1/2 items-center gap-2  border border-r-0 border-green-700 bg-blue-600 px-4 py-3 font-medium text-white shadow-lg hover:bg-blue-800"
-                  >
-                    <PackageCheck className="size-5" />
-                
-                  </Link>
-              <Navbar />
-              {children}
-              <Toaster />
-              <Footer />
-            </CartContext>
+            <Suspense
+              fallback={
+                // p-8 text-center  text-green-800 w-full
+                <div className="flex justify-center flex-col gap-4 items-center  min-h-screen p-8 text-center text-green-800">
+                  Loading GreenShop...
+                  <Settings className="text-green-800 w-20 h-20 animate-spin" />
+                </div>
+              }
+            >
+              <CartContext>
+                <Link
+                  href="/allorders"
+                  className="fixed right-1 bottom-1/20 z-9999 rounded-xl flex -translate-y-1/2 items-center gap-2  border border-r-0 border-green-700 bg-blue-600 px-4 py-3 font-medium text-white shadow-lg hover:bg-blue-800"
+                >
+                  <PackageCheck className="size-5" />
+                </Link>
+                <Navbar />
+                {children}
+                <Toaster />
+                <Footer />
+              </CartContext>
+            </Suspense>
           </MySessionProvider>
         </div>
       </body>
     </html>
   );
-
-
-
 }

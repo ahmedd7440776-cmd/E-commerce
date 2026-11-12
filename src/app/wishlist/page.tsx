@@ -1,10 +1,26 @@
 import Link from "next/link";
-import { Heart, ShoppingBag } from "lucide-react";
+import { Heart, ShoppingBag, Smile } from "lucide-react";
 
 import { getWishlistProducts } from "./wishlist.action";
 import RemoveWishlistButton from "./RemoveWishlistButton";
+import { Suspense } from "react";
 
 export default async function WishlistPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="p-8 text-center flex justify-center flex-col gap-4 items-center  text-green-800 w-full">
+          Loading wishlist...
+          <Smile className="w-15 h-15  animate-bounce text-center" />
+        </main>
+      }
+    >
+      <WishlistContent />
+    </Suspense>
+  );
+}
+
+async function WishlistContent() {
   const products = await getWishlistProducts();
 
   return (

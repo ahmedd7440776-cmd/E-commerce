@@ -11,7 +11,7 @@ import { Loader2Icon } from "lucide-react";
 import { toast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { handleUserRegister } from "./register.action";
-
+import { signIn } from "next-auth/react";
 export default function RegisterForm() {
   const {
     handleSubmit,
@@ -31,28 +31,48 @@ export default function RegisterForm() {
   });
   const router = useRouter();
 
-async function handle(data: RegisterDataTypeInterface) {
-  const promise = handleUserRegister(data).then((res) => {
-    if (!res.success) {
-      if(res.status === 409) router.push('/login')
-        throw new Error(res.message)
+
+
+  async function handle(data: RegisterDataTypeInterface) {
+    const promise = (async () => {
+      const registration = await handleUserRegister(data);
+
+      if (!registration.success) {
+        throw new Error(registration.message);
+      }
+
+      const login = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      if (login?.error) {
+        throw new Error(
+          "Your account was created, but automatic sign-in failed. Please log in.",
+        );
+      }
+
+      return registration;
+    })();
+
+    toast.promise(promise, {
+      loading: "Creating your account...",
+      success: () => {
+        // Reload so CartContext fetches the cart and wishlist with the new session.
+        window.location.replace("/");
+        return "Account created and signed in!";
+      },
+      error: (error: Error) => error.message,
+    });
+
+    try {
+      await promise;
+    } catch {
+      // The toast displays the error.
     }
-    return res
-  });
+  }
 
-  toast.promise(promise, {
-    loading: "Please wait",
-    success: () => {
-      router.push("/");
-      return "Account created successfully";
-    },
-    error: (err: Error) => err.message ,
-  });
-
-  try {
-    await promise;
-  } catch {}
-}
 
 
   return (

@@ -4,8 +4,10 @@ import type { Product } from "@/app/services/home.interface";
 import AddToCart from "@/components/AddToCart/AddToCart";
 import WishlistButton from "../wishlist/WishlistButton";
 
+export default function Products({ prod }: { prod?: Product | null }) {
+  if (!prod) return null;
 
-export default function Products({ prod }: { prod: Product }) {
+
   const {
     brand,
     category,
@@ -51,7 +53,7 @@ export default function Products({ prod }: { prod: Product }) {
           <WishlistButton productId={_id} productTitle={title} />
 
           <button
-                      type="button"
+            type="button"
             aria-label={`Compare ${title}`}
             className="grid size-7 place-items-center rounded-full border border-gray-100 bg-white text-slate-600 shadow-sm transition hover:text-green-600"
           >
@@ -83,7 +85,7 @@ export default function Products({ prod }: { prod: Product }) {
           </h2>
         </Link>
 
-        {brand?.name && <p className="sr-only">{brand.name}</p>}
+        {brand.name && <p className="sr-only">{brand.name}</p>}
 
         <div className="mt-2 flex items-center gap-2">
           <div
