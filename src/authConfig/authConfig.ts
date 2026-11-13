@@ -47,21 +47,17 @@ export const authJsConfig: NextAuthConfig = {
         );
         const data: LoginResponseType = await response.json();
         console.log(data);
-console.log("logain data ", data);
-
+        console.log("logain data ", data);
 
         if (data.message === "success") {
           const { role, ...userData } = data.user;
-console.log("logain data ", data);
+          console.log("logain data ", data);
 
           // user insisde the data object is the user object that is returned from the backend and it contains the user data and the token
           // console.log(userData ,data);
 
-
-// console.log('backend user' , data.user);
-// console.log('backend user id' , data.user.id);
-
-
+          // console.log('backend user' , data.user);
+          // console.log('backend user id' , data.user.id);
 
           return { ...userData, userTkn: data.token };
 
@@ -74,6 +70,9 @@ console.log("logain data ", data);
       },
     }),
   ],
+  secret: process.env.AUTH_SECRET,
+  trustHost: true,
+  session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
   },
@@ -84,13 +83,13 @@ console.log("logain data ", data);
 
       // we make this if statement to make sure that there is a user and not return undefined because it is being callled after each succesful call or navgation
       if (user) {
-        console.log('uathuser' , user);
+        // console.log('uathuser' , user);
         const decodeToken: { id: string } = jwtDecode(user.userTkn);
         token.id = decodeToken.id;
         token.CredentialsToken = user.userTkn;
       }
       // console.log('saved token id ' , token.id);
-      
+
       // runs on server side and it returns the token object that will be stored in the cookies
       return token;
       //  the user tkn is stored in the token object and it will be used to authenticate the user in the next request
@@ -101,11 +100,10 @@ console.log("logain data ", data);
       //  usesession() hook is used to get the session object and it will be used to authenticate the user in the next request
       // console.log("param object   ", param);
 
+      //       console.log('seccion callback toen id ', token.id);
 
-//       console.log('seccion callback toen id ', token.id);
-      
       session.user.id = token.id;
-// console.log("final seccion ", session);
+      // console.log("final seccion ", session);
 
       return session;
     },

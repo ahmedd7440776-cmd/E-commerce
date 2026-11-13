@@ -31,28 +31,28 @@ export default function RegisterForm() {
 
   const router = useRouter();
 
-  async function handle(data: LoginDataTypeInterface) {
-    const res = signIn("credentials", { ...data, redirect: false })
-    .then(function (res) {
-        if (res.error) {
-          throw new Error();
-        }
-        return "success";
-      },
-    );
+  // async function handle(data: LoginDataTypeInterface) {
+  //   const res = signIn("credentials", { ...data, redirect: false })
+  //   .then(function (res) {
+  //       if (res.error) {
+  //         throw new Error();
+  //       }
+  //       return "success";
+  //     },
+  //   );
 
-    toast.promise(res, {
-      success: () => {
-        router.push("/");
-        return "User logged in successfully";
-      },
-      error: "Incorrect email or password",
-      loading: "Please wait",
-      // error: (data) => {
-      //   return data.message || "Incorrect email or password";
-      // },
-    });
-  }
+  //   toast.promise(res, {
+  //     success: () => {
+  //       router.push("/");
+  //       return "User logged in successfully";
+  //     },
+  //     error: "Incorrect email or password",
+  //     loading: "Please wait",
+  //     // error: (data) => {
+  //     //   return data.message || "Incorrect email or password";
+  //     // },
+  //   });
+  // }
 
   // async function handle(data: LoginDataTypeInterface) {
   //   const res = await signIn("credentials", {
@@ -67,6 +67,37 @@ export default function RegisterForm() {
   //   const promise = handle(data);
   // }
 
+
+
+
+
+  async function handle(data: LoginDataTypeInterface) {
+    const loginPromise = signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((result) => {
+      if (!result || result.error || !result.ok) {
+        throw new Error("Incorrect email or password");
+      }
+
+      return result;
+    });
+    
+
+    toast.promise(loginPromise, {
+      loading: "Please wait",
+      success: "User logged in successfully",
+      error: "Incorrect email or password",
+    });
+
+    try {
+      await loginPromise;
+      router.replace("/");
+      router.refresh();
+    } catch {
+      // The toast displays the login error.
+    }
+  }
   return (
     <>
       <form onSubmit={handleSubmit(handle)} className="flex flex-col gap-6">

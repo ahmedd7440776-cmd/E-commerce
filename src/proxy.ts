@@ -7,20 +7,15 @@ export async function proxy(req: NextRequest) {
     secret: process.env.AUTH_SECRET,
   });
 
+  const pathName = req.nextUrl.pathname;
+  const isAuth = pathName === "/login" || pathName === "/register";
 
-const pathName = req.nextUrl.pathname
-const isAuth = pathName === "/login" || pathName === "/register"; 
-
-
-if (isAuth) {
-  if(token){
-  return NextResponse.redirect(new URL("/", req.url));
-
-  }
+  if (isAuth) {
+    if (token) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
     return NextResponse.next();
-  
-}
-
+  }
 
   if (token) {
     // this returns desierd page
@@ -32,12 +27,11 @@ if (isAuth) {
 //  the request comes from the client and we need to send it to the server and get the response and send it back to the client
 //  it has to return a NextResponse object with the response from the server
 //  request contains the object which is the data user (email , name , credentaialToken,.....)
- 
+
 export const config = {
   matcher: [
     "/cart/:path*",
     "/wishlist/:path*",
-    "/category/:path*",
     "/login/:path*",
     "/register/:path*",
     "/payment/:path*",

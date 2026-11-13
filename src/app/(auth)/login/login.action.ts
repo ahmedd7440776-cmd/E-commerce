@@ -18,18 +18,15 @@ export async function handleUserLogin(userData: LoginDataTypeInterface) {
 
   if (data.message === "success") {
     const cookie = await cookies();
-console.log( 'logain data hhhhhhhhhhhhhhhhhhh', data);
 
     cookie.set("user_token", data.token, {
       httpOnly: true,
       maxAge: 60 * 60 *12 , 
       sameSite: "strict",
     });
-console.log("logain data hhhhhhhhhhhhhhhhhhh", data);
 
     return "User logged successfuly";
   }
-console.log("logain data hhhhhhhhhhhhhhhhhhh", data);
 
   return data.message || 'Something went wrong';
 }

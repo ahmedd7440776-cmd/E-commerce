@@ -6,7 +6,6 @@ import getAllCategoiers from "./services/category.services";
 import { lazy, Suspense } from "react";
 import { connection } from "next/server";
 import { getAllProducts } from "./services/home.services";
-import ProductsPage from "./products/page";
 import ProductGrid from "@/components/ProductGrid/ProductGrid";
    
 const LazyLoadingpage = lazy(() => import("@/components/slider/Slider"));
