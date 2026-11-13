@@ -2,8 +2,10 @@
 import HeroSlider from "@/components/HeroSlider/HeroSlider";
 import ProductGrid from "../../components/ProductGrid/ProductGrid";
 import { getAllProducts } from "@/app/services/home.services";
+import { connection } from "next/server";
 
 export default async function ShopPage() {
+    await connection();
   const products = await getAllProducts();
 
   return (
