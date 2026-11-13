@@ -6,6 +6,7 @@ import {
   CalendarDays,
   MapPin,
   Package,
+  Settings,
   ShoppingBag,
   Truck,
 } from "lucide-react";
@@ -293,7 +294,8 @@ function OrderCard({
 function OrderStatus({ order }: { order: Order }) {
   if (order.isDelivered) {
     return (
-      <span className="bg-green-100 text-green-800 hover:bg-green-100">
+      <span className="bg-green-100 text-green-800 px-2 rounded-2xl hover:bg-green-100">
+     
         Delivered
       </span>
     );
@@ -301,17 +303,18 @@ function OrderStatus({ order }: { order: Order }) {
 
   if (order.isPaid) {
     return (
-      <span className="bg-sky-100 text-sky-800 hover:bg-sky-100">
-        <Truck className="mr-1 size-3" />
-        On the way
-      </span>
+      <div className="flex bg-sky-100 text-sky-800 px-2 rounded-2xl hover:bg-sky-100 items-center justify-center flex-row">
+        <Truck className="mr-1 size-4 animate-pulse" />
+        <span className=" text-[14px] font-bold">On the way</span>
+      </div>
     );
   }
 
   return (
-    <span className="bg-amber-100 text-amber-800 px-2 rounded-2xl hover:bg-amber-100">
-      Processing
-    </span>
+    <div className="flex px-2 rounded-2xl hover:bg-amber-100 bg-amber-100 text-amber-800  items-center justify-center flex-row">
+      <Settings className="mr-1 size-4 animate-spin" />
+      <span className="text-[14px] font-bold ">Processing</span>
+    </div>
   );
 }
 

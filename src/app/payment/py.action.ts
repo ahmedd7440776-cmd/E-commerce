@@ -66,6 +66,7 @@ export async function onlineOrder(
   if (!response.ok) {
     throw new Error(`Could not start online checkout: ${response.status}`);
   }
+  revalidatePath("/cart");
 
   return data;
 }
