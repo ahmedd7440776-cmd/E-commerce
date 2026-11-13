@@ -31,41 +31,6 @@ export default function RegisterForm() {
 
   const router = useRouter();
 
-  // async function handle(data: LoginDataTypeInterface) {
-  //   const res = signIn("credentials", { ...data, redirect: false })
-  //   .then(function (res) {
-  //       if (res.error) {
-  //         throw new Error();
-  //       }
-  //       return "success";
-  //     },
-  //   );
-
-  //   toast.promise(res, {
-  //     success: () => {
-  //       router.push("/");
-  //       return "User logged in successfully";
-  //     },
-  //     error: "Incorrect email or password",
-  //     loading: "Please wait",
-  //     // error: (data) => {
-  //     //   return data.message || "Incorrect email or password";
-  //     // },
-  //   });
-  // }
-
-  // async function handle(data: LoginDataTypeInterface) {
-  //   const res = await signIn("credentials", {
-  //     ...data,
-  //     redirect: false,
-  //     redirectTo: "/",
-  //   });
-  //   if (res?.error) {
-  //     throw new Error("Incorrect email or password");
-  //   }
-  //   return "success";
-  //   const promise = handle(data);
-  // }
 
 
 
@@ -82,7 +47,7 @@ export default function RegisterForm() {
 
       return result;
     });
-    
+
 
     toast.promise(loginPromise, {
       loading: "Please wait",
