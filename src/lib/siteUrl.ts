@@ -1,13 +1,17 @@
-import { url } from "inspector"
+export function getSiteUrl() {
+  const siteUrl = process.env.SITE_URL?.trim();
 
-export function getSiteUrl(){
-// my url
+  if (siteUrl) {
+    return siteUrl.replace(/\/+$/, "");
+  }
 
-    if(process.env.SITE_URL) return process.env.SITE_URL
-
-    // backup url
-if(process.env.VERCEL_PROJECT_PRODUCTION_URL){
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-}
-throw new Error('SITE URL IS NOT SET')
+  }
+
+  if (process.env.NODE_ENV !== "production") {
+    return "http://localhost:3000";
+  }
+
+  throw new Error("SITE_URL is not set");
 }
