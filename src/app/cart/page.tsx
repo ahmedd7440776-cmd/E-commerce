@@ -179,17 +179,11 @@ async function CartContent() {
               </div>
             </div>
 
-            {/* <Button
-              variant="outline"
-              className="h-9 w-full border-dashed text-xs text-slate-600"
-            >
-              <Tag className="mr-2 size-3.5" />
-              Apply Promo Code
-            </Button> */}
+           
 
             <ApplyCoupon />
 
-            <Button className="h-10 w-full bg-green-600 text-xs font-bold text-white hover:bg-green-700">
+            <Button disabled={numOfCartItems === 0} className="h-10 w-full bg-green-600 text-xs font-bold text-white hover:bg-green-700">
               <LockKeyhole className="mr-2 size-4" />
 
               {/*  send the cart id in url and get by [id] parmas and dustruct it (easy)  */}

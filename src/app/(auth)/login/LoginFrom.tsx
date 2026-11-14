@@ -105,37 +105,76 @@ export default function RegisterForm() {
           )}
         />
 
-        <div className="gap-3  flex justify-center">
-          <AppButton
-            disabled={isSubmitting}
-            type="submit"
-            className="disabled:cursor-not-allowed disabled:bg-green-700 cursor-pointer  bg-green-700 text-white hover:bg-green-500 w-6/12 hover:text-black"
-          >
-            {isSubmitting ? (
-              <span className="flex items-center gap-2">
-                <Loader2Icon className="size-4 animate-spin" />
-              </span>
-            ) : (
-              " Sign In"
-            )}
-          </AppButton>
-          {/* <AppButton
-onClick={()=>googleLogin()}
-            type="submit"
-            className="disabled:cursor-not-allowed disabled:bg-green-700 cursor-pointer  bg-yellow-700 text-white hover:bg-green-500 w-6/12 hover:text-black"
-          >
-          google Sign In
-          </AppButton> */}
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-center gap-3">
+            <AppButton
+              disabled={isSubmitting}
+              type="submit"
+              className="w-6/12 cursor-pointer bg-green-700 text-white hover:bg-green-500 hover:text-black disabled:cursor-not-allowed disabled:bg-green-700"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2Icon className="size-4 animate-spin" />
+                </span>
+              ) : (
+                "Sign In"
+              )}
+            </AppButton>
 
-          <AppButton
-            onClick={() => reset()}
-            type="button"
-            className="bg-red-700 text-white hover:bg-red-500 w-6/12 cursor-pointer hover:text-black"
-          >
-            Reset{" "}
-          </AppButton>
+            <AppButton
+              onClick={() => reset()}
+              type="button"
+              className="w-6/12 cursor-pointer bg-red-700 text-white hover:bg-red-500 hover:text-black"
+            >
+              Reset
+            </AppButton>
+          </div>
+
+          <div className="flex justify-end">
+            <AppButton
+              onClick={() => router.push("/forgot-password")}
+              type="button"
+              className="h-auto bg-transparent px-0 py-1 text-sm text-green-700 hover:bg-transparent hover:underline"
+            >
+              Forgot password?
+            </AppButton>
+          </div>
         </div>
       </form>
     </>
   );
 }
+
+
+
+
+//   <div className="gap-3  flex justify-center">
+//     <AppButton
+//       disabled={isSubmitting}
+//       type="submit"
+//       className="disabled:cursor-not-allowed disabled:bg-green-700 cursor-pointer  bg-green-700 text-white hover:bg-green-500 w-6/12 hover:text-black"
+//     >
+//       {isSubmitting ? (
+//         <span className="flex items-center gap-2">
+//           <Loader2Icon className="size-4 animate-spin" />
+//         </span>
+//       ) : (
+//         " Sign In"
+//       )}
+//     </AppButton>
+//     {/* <AppButton
+// onClick={()=>googleLogin()}
+//             type="submit"
+//             className="disabled:cursor-not-allowed disabled:bg-green-700 cursor-pointer  bg-yellow-700 text-white hover:bg-green-500 w-6/12 hover:text-black"
+//           >
+//           google Sign In
+//           </AppButton> */}
+
+//     <AppButton
+//       onClick={() => reset()}
+//       type="button"
+//       className="bg-red-700 text-white hover:bg-red-500 w-6/12 cursor-pointer hover:text-black"
+//     >
+//       Reset{" "}
+//     </AppButton>
+//   </div>;
