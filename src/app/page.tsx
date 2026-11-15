@@ -1,45 +1,115 @@
+// import HeroSlider from "@/components/HeroSlider/HeroSlider";
+// import Categories from "./category/page";
+// import PromoBanners from "@/components/PromoBanners/PromoBanners ";
+// import getAllCategoiers from "./services/category.services";
+// import { lazy, Suspense } from "react";
+// import { connection } from "next/server";
+// import { getAllProducts } from "./services/home.services";
+// import ProductGrid from "@/components/ProductGrid/ProductGrid";
+
+// const LazyLoadingpage = lazy(() => import("@/components/slider/Slider"));
+
+// export default async function Home() {
+//     await connection();
+//   const productsData = await getAllProducts();
+//   const categories = await getAllCategoiers();
+//   const imageList = categories.map((e) => e.image);
+
+//   return (
+//     <main className="min-h-screen w-full overflow-x-hidden ">
+//       <HeroSlider />
+
+//       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+//         <Categories />
+//       </section>
+//       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+//         <Suspense
+//           fallback={
+//             <h1 className="py-8 text-center text-2xl font-bold text-white sm:text-4xl">
+//               Loading...
+//             </h1>
+//           }
+//         >
+//           <LazyLoadingpage imageList={imageList} />
+//         </Suspense>
+//       </section>
+//       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+//         <PromoBanners />
+//       </section>
+//       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+//         <ProductGrid products={productsData} />
+//       </section>
+//     </main>
+//   );
+// }
+
+
+
+
+
+import { lazy, Suspense } from "react";
+import { connection } from "next/server";
 
 import HeroSlider from "@/components/HeroSlider/HeroSlider";
 import Categories from "./category/page";
 import PromoBanners from "@/components/PromoBanners/PromoBanners ";
-import getAllCategoiers from "./services/category.services";
-import { lazy, Suspense } from "react";
-import { connection } from "next/server";
-import { getAllProducts } from "./services/home.services";
 import ProductGrid from "@/components/ProductGrid/ProductGrid";
-   
-const LazyLoadingpage = lazy(() => import("@/components/slider/Slider"));
+import getAllCategoiers from "./services/category.services";
+import { getAllProducts } from "./services/home.services";
 
-export default async function Home() {
-    await connection();
-  const productsData = await getAllProducts();
-  const categories = await getAllCategoiers();
-  const imageList = categories.map((e) => e.image);
+const LazyLoadingPage = lazy(() => import("@/components/slider/Slider"));
+
+export default function Home() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen p-8 text-center">
+          Loading the store...
+        </main>
+      }
+    >
+      <HomeContent />
+    </Suspense>
+  );
+}
+
+async function HomeContent() {
+  await connection();
+
+  const [productsData, categories] = await Promise.all([
+    getAllProducts(),
+    getAllCategoiers(),
+  ]);
+
+  const imageList = categories.map((category) => category.image);
 
   return (
-    <main className="min-h-screen w-full overflow-x-hidden ">
+    <main className="min-h-screen w-full overflow-x-hidden">
       <HeroSlider />
 
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Categories />
       </section>
+
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Suspense
           fallback={
-            <h1 className="py-8 text-center text-2xl font-bold text-white sm:text-4xl">
-              Loading...
-            </h1>
+            <p className="py-8 text-center text-2xl font-bold">Loading...</p>
           }
         >
-          <LazyLoadingpage imageList={imageList} />
+          <LazyLoadingPage imageList={imageList} />
         </Suspense>
       </section>
+
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <PromoBanners />
       </section>
+
       <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <ProductGrid products={productsData} />
       </section>
     </main>
   );
 }
+
+

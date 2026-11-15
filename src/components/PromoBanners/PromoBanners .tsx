@@ -5,7 +5,6 @@ const promotions = [
   {
     label: "Deal of the Day",
     title: "Woman Brown Long Sleeve Tunic LT.CAMEL",
-    
 
     description: "Get up to 40% off on selected items",
     discount: "40% OFF",

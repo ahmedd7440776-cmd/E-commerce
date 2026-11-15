@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Navigation,
   Pagination,
@@ -17,8 +17,6 @@ import "swiper/css/scrollbar";
 import "swiper/css/effect-cube";
 import "swiper/css/pagination";
 
-
-
 export default function Slider({
   spaceBetween = 0,
   slidesPerView = 6,
@@ -31,11 +29,8 @@ export default function Slider({
   navigation?: boolean;
   pagination?: boolean;
   imageList: string[];
-}) 
-
-
-{
-  const loopedd = [...imageList, ...imageList,...imageList ];
+}) {
+  const loopedd = [...imageList, ...imageList, ...imageList];
   return (
     <div className="w-full overflow-hidden py-6 mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] border border-gray-400/50 ">
       <Swiper
@@ -69,3 +64,8 @@ export default function Slider({
     </div>
   );
 }
+
+
+
+
+

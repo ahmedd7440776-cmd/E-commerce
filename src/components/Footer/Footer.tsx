@@ -1,9 +1,8 @@
-'use client'
+"use client";
 import Link from "next/link";
 import {
-
-    Balloon,
-    FaceAngry,
+  Balloon,
+  FaceAngry,
   GuitarIcon,
   Headphones,
   Mail,
@@ -12,7 +11,6 @@ import {
   ShieldCheck,
   ShoppingCart,
   Truck,
-
 } from "lucide-react";
 
 const footerColumns = [
@@ -196,3 +194,7 @@ export default function Footer() {
     </footer>
   );
 }
+
+
+
+

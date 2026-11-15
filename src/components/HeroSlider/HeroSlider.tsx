@@ -152,11 +152,11 @@ export default function HeroSlider() {
       {/* Text and links */}
       <div className="flex min-h-64 items-center px-6 py-12 sm:min-h-80 sm:px-14 lg:min-h-97.5 lg:px-24">
         <div key={active} className="max-w-xl text-white">
-          <h1 className="whitespace-pre-line text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
+          <h1 className="whitespace-pre-line text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl text-white [-webkit-text-stroke:1px_#000] [text-shadow:2px_2px_4px_#000]">
             {slide.title}
           </h1>
 
-          <p className="mt-4 text-sm sm:text-base">{slide.subtitle}</p>
+          <p className="mt-4 text-sm sm:text-base ">{slide.subtitle}</p>
 
           <div className="mt-6 flex flex-wrap gap-3">
             <a

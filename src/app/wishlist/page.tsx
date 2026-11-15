@@ -99,3 +99,8 @@ async function WishlistContent() {
     </main>
   );
 }
+
+
+
+
+

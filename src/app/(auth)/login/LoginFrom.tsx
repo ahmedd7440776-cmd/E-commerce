@@ -10,7 +10,7 @@ import { sendUserDataLogin } from "./Login.service";
 import { toast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { Loader2Icon } from "lucide-react";
-import { signIn, } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { log } from "console";
 // import { googleLogin } from "./social.action";
 
@@ -31,11 +31,6 @@ export default function RegisterForm() {
 
   const router = useRouter();
 
-
-
-
-
-
   async function handle(data: LoginDataTypeInterface) {
     const loginPromise = signIn("credentials", {
       ...data,
@@ -47,7 +42,6 @@ export default function RegisterForm() {
 
       return result;
     });
-
 
     toast.promise(loginPromise, {
       loading: "Please wait",
@@ -145,9 +139,6 @@ export default function RegisterForm() {
   );
 }
 
-
-
-
 //   <div className="gap-3  flex justify-center">
 //     <AppButton
 //       disabled={isSubmitting}
@@ -178,3 +169,9 @@ export default function RegisterForm() {
 //       Reset{" "}
 //     </AppButton>
 //   </div>;
+
+
+
+
+
+

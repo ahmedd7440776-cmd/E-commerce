@@ -11,7 +11,7 @@ import { CartCountProvider } from "@/context/cartContext/cartContext";
 export default function AddToCart({ prod }: { prod: Product }) {
 
   const { setCount } = useContext(CartCountProvider);
-  
+
   //  prod comes from products page as a prob  to get (quantity,title)
   const { quantity, title, _id: productId } = prod;
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +33,7 @@ export default function AddToCart({ prod }: { prod: Product }) {
         error: "Can not add to cart",
       });
     } catch (error) {
-    
+
       window.alert(error);
     } finally {
       setIsLoading(false);

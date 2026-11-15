@@ -82,72 +82,69 @@ const {setCount}= useContext(CartCountProvider)
   );
 }
 
+// // "use client";
+// // import AppButton from "@/components/AppButton/AppButton";
+// // import React, { useOptimistic, useTransition } from "react";
+// // import { handleUpdataCartCount } from "./cart.action";
+// // import { toast } from "@/components/ui/toast";
 
+// // export default function UpdataCartCount({
+// //   productId,
+// //   count,
+// //   title,
+// // }: {
+// //   productId: string;
+// //   count: number;
+// //   title: string;
+// // }) {
+// //   const [optimisticCount, setOptimisticCount] = useOptimistic(count);
+// //   const [, startTransition] = useTransition();
 
+// //   function updataCount(newCount: number) {
+// //     startTransition(async () => {
+// //       setOptimisticCount(newCount); // instant changing of the number
 
-// "use client";
-// import AppButton from "@/components/AppButton/AppButton";
-// import React, { useOptimistic, useTransition } from "react";
-// import { handleUpdataCartCount } from "./cart.action";
-// import { toast } from "@/components/ui/toast";
+// //       const promise = handleUpdataCartCount(productId, newCount);
+// //       toast.promise(promise, {
+// //         success: (data) => data.message,
+// //         error: "can not updata the quentatiy",
+// //         loading: "please wait",
+// //       });
+// //       try {
+// //         await promise;
+// //       } catch {
+// //         //  the number reterns automaticly to the prev
+// //       }
+// //     });
+// //   }
 
-// export default function UpdataCartCount({
-//   productId,
-//   count,
-//   title,
-// }: {
-//   productId: string;
-//   count: number;
-//   title: string;
-// }) {
-//   const [optimisticCount, setOptimisticCount] = useOptimistic(count);
-//   const [, startTransition] = useTransition();
-
-//   function updataCount(newCount: number) {
-//     startTransition(async () => {
-//       setOptimisticCount(newCount); // instant changing of the number
-
-//       const promise = handleUpdataCartCount(productId, newCount);
-//       toast.promise(promise, {
-//         success: (data) => data.message,
-//         error: "can not updata the quentatiy",
-//         loading: "please wait",
-//       });
-//       try {
-//         await promise;
-//       } catch {
-//         //  the number reterns automaticly to the prev
-//       }
-//     });
-//   }
-
-//   return (
-//     <div className="mt-3 inline-flex h-8 items-center rounded-lg border border-slate-200 p-0.5">
-//       <AppButton
-//         //   productId={item.product._id}
-//         //   count={item.count - 1}
-//         onClick={() => updataCount(optimisticCount - 1)}
-//         size="icon"
-//         disabled={optimisticCount <= 1}
-//         className="size-7 rounded-md text-black bg-gray-400 hover:bg-gray-800 hover:text-white "
-//         aria-label={`Decrease ${title} quantity`}
-//       >
-//         −
-//       </AppButton>
-//       <span className="w-8 text-center text-xs font-bold">
-//         {optimisticCount}
-//       </span>
-//       <AppButton
-//         //   count={item.count + 1}
-//         //   productId={item.product._id}
-//         onClick={() => updataCount(optimisticCount + 1)}
-//         size="icon"
-//         // disabled={ispending}
-//         className="size-7 rounded-md bg-green-600 text-white hover:bg-green-700"
-//         aria-label={`Increase ${title} quantity`}
-//       >
-//         +
-//       </AppButton>
-//     </div>
-//   );
-// }
+// //   return (
+// //     <div className="mt-3 inline-flex h-8 items-center rounded-lg border border-slate-200 p-0.5">
+// //       <AppButton
+// //         //   productId={item.product._id}
+// //         //   count={item.count - 1}
+// //         onClick={() => updataCount(optimisticCount - 1)}
+// //         size="icon"
+// //         disabled={optimisticCount <= 1}
+// //         className="size-7 rounded-md text-black bg-gray-400 hover:bg-gray-800 hover:text-white "
+// //         aria-label={`Decrease ${title} quantity`}
+// //       >
+// //         −
+// //       </AppButton>
+// //       <span className="w-8 text-center text-xs font-bold">
+// //         {optimisticCount}
+// //       </span>
+// //       <AppButton
+// //         //   count={item.count + 1}
+// //         //   productId={item.product._id}
+// //         onClick={() => updataCount(optimisticCount + 1)}
+// //         size="icon"
+// //         // disabled={ispending}
+// //         className="size-7 rounded-md bg-green-600 text-white hover:bg-green-700"
+// //         aria-label={`Increase ${title} quantity`}
+// //       >
+// //         +
+// //       </AppButton>
+// //     </div>
+// //   );
+// // }
