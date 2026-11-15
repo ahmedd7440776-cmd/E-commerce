@@ -12,7 +12,5 @@ export default async function getAllBrands(): Promise<Brand[]> {
   }
   const response: AllBarandsResponse = await res.json();
 
-  // console.log(response.data);
-
   return response.data;
 }
