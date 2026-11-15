@@ -170,7 +170,7 @@ function ProductCard({ prod, view }: { prod: Product; view: "grid" | "list" }) {
 
   return (
     <article
-      className={`group relative flex h-full min-w-0 w-full overflow-hidden rounded-xl border border-gray-200 bg-white p-3 shadow-sm transition-shadow hover:shadow-lg sm:p-4 ${
+      className={`group relative flex h-full min-w-0 w-full overflow-hidden rounded-xl border border-gray-200 bg-white p-3 shadow-2xl transition-shadow hover:shadow-sm hover:shadow-green-700/70 sm:p-4 ${
         view === "list" ? "flex-col sm:flex-row" : "flex-col"
       }`}
     >

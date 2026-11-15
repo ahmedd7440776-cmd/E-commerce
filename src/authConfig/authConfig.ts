@@ -1,9 +1,8 @@
 import { LoginResponseType } from "@/app/(auth)/login/Login.interface";
-import { log } from "console";
+
 import { DefaultSession, NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { DefaultSerializer } from "v8";
-import { int } from "zod";
+
 import { jwtDecode } from "jwt-decode";
 
 
@@ -46,12 +45,12 @@ export const authJsConfig: NextAuthConfig = {
           },
         );
         const data: LoginResponseType = await response.json();
-        console.log(data);
-        console.log("logain data ", data);
+        // console.log(data);
+        // console.log("logain data ", data);
 
         if (data.message === "success") {
           const { role, ...userData } = data.user;
-          console.log("logain data ", data);
+          // console.log("logain data ", data);
 
           // user insisde the data object is the user object that is returned from the backend and it contains the user data and the token
           // console.log(userData ,data);
@@ -78,16 +77,23 @@ export const authJsConfig: NextAuthConfig = {
   },
   callbacks: {
     //  param is an object that contains the user object and the token object
-    jwt: ({ token, user }) => {
+    jwt: ({ token, user, trigger, session }) => {
       // console.log(  'parama jwt',user,token);
 
       // we make this if statement to make sure that there is a user and not return undefined because it is being callled after each succesful call or navgation
       if (user) {
         // console.log('uathuser' , user);
+
+
         const decodeToken: { id: string } = jwtDecode(user.userTkn);
         token.id = decodeToken.id;
         token.CredentialsToken = user.userTkn;
       }
+
+       if (trigger === "update" && session) {
+         if (typeof session.name === "string") token.name = session.name;
+         if (typeof session.email === "string") token.email = session.email;
+       }
       // console.log('saved token id ' , token.id);
 
       // runs on server side and it returns the token object that will be stored in the cookies
