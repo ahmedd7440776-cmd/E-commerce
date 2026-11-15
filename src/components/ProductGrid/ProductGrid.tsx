@@ -1,16 +1,4 @@
-// // src/app/products/ProductGrid.tsx
-// import Products from "@/app/products/page";
-// import { Product } from "@/app/services/home.interface";
 
-// export default function ProductGrid({ products }: { products: Product[] }) {
-//   return (
-//     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
-//       {products.filter(Boolean).map((product) => (
-//         <Products key={product._id} prod={product} />
-//       ))}
-//     </div>
-//   );
-// }
 import { Eye, RefreshCw, Star } from "lucide-react";
 import Link from "next/link";
 
@@ -64,13 +52,7 @@ function ProductCard({ prod }: { prod: Product }) {
         <div className="absolute right-0 top-0 flex flex-col items-center gap-2">
           <WishlistButton productId={_id} productTitle={title} />
 
-          <button
-            type="button"
-            aria-label={`Compare ${title}`}
-            className="grid size-7 place-items-center rounded-full border border-gray-100 bg-white text-slate-600 shadow-sm transition hover:text-green-600"
-          >
-            <RefreshCw className="size-4" />
-          </button>
+       
 
           <Link
             href={`/products/${_id}`}

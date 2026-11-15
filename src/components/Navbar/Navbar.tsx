@@ -532,7 +532,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <span className="hidden shrink-0 text-xl font-bold text-green-800 shadow-2xl lg:flex">
+          <span className="hidden shrink-0 text-xl font-bold text-green-800 shadow-2xl lg:flex ">
             Green shop
           </span>
 
