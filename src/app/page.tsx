@@ -57,6 +57,7 @@ import ProductGrid from "@/components/ProductGrid/ProductGrid";
 import getAllCategoiers from "./services/category.services";
 import { getAllProducts } from "./services/home.services";
 
+
 const LazyLoadingPage = lazy(() => import("@/components/slider/Slider"));
 
 export default function Home() {
@@ -64,6 +65,7 @@ export default function Home() {
     <Suspense
       fallback={
         <main className="min-h-screen p-8 text-center">
+     
           Loading the store...
         </main>
       }

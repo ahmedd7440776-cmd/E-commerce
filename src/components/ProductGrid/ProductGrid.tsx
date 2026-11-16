@@ -139,6 +139,7 @@ import Link from "next/link";
 import type { Product } from "@/app/services/home.interface";
 import AddToCart from "@/components/AddToCart/AddToCart";
 import WishlistButton from "@/app/wishlist/WishlistButton";
+import Image from "next/image";
 
 type ProductGridProps = {
   products: Product[];
@@ -188,9 +189,19 @@ function ProductCard({ prod, view }: { prod: Product; view: "grid" | "list" }) {
               : "aspect-[1.15/1]"
           }`}
         >
-          <img
+          {/* <img
             src={imageCover}
             alt={title}
+            className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+          /> */}
+
+          <Image
+            src={imageCover}
+            alt={title}
+            width={660}
+            height={900}
+            sizes="(max-width: 639px) 90vw, (max-width: 767px) 45vw, (max-width: 1023px) 30vw, 25vw"
+            quality={75}
             className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
           />
         </Link>

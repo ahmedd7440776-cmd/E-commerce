@@ -121,7 +121,7 @@ export default function HeroSlider() {
         />
       ))} */}
 
-      {slides.map((item, index) => {
+      {/* {slides.map((item, index) => {
         const prev = (active - 1 + slides.length) % slides.length;
         const next = (active + 1) % slides.length;
         if (index !== active && index !== prev && index !== next) return null;
@@ -140,6 +140,33 @@ export default function HeroSlider() {
               fill
               sizes="100vw"
               priority={index === 0}
+              className="object-cover object-center"
+            />
+          </div>
+        );
+      })} */}
+
+      {slides.map((item, index) => {
+        const next = (active + 1) % slides.length;
+
+        // Keep the current slide and the next one ready.
+        if (index !== active && index !== next) return null;
+
+        return (
+          <div
+            key={item.image}
+            aria-hidden={index !== active}
+            className={`absolute inset-0 -z-20 transition-opacity duration-700 ${
+              index === active ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={item.image}
+              alt=""
+              fill
+              sizes="100vw"
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "auto"}
               className="object-cover object-center"
             />
           </div>

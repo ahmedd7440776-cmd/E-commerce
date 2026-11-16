@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import Link from "next/link";
@@ -337,7 +335,7 @@ export default function Navbar() {
                       className={navigationMenuTriggerStyle()}
                       render={
                         <Link href="/login">
-                          Sign in <User  className="text-green-700"/>
+                          Sign in <User className="text-green-700" />
                         </Link>
                       }
                     />
@@ -345,7 +343,7 @@ export default function Navbar() {
                       className={navigationMenuTriggerStyle()}
                       render={
                         <Link href="/register">
-                          Sign up <UserPlus  className="text-yellow-600"/>
+                          Sign up <UserPlus className="text-yellow-600" />
                         </Link>
                       }
                     />
